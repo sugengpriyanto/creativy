@@ -14,4 +14,12 @@ function auth(req, res, next) {
     }
 }
 
-module.exports = auth;
+function admin(req, res, next) {
+    if(req.body.userId === req.params.id) {
+        next()
+    } else {
+        res.json("Access Denied")
+    }
+}
+
+module.exports = {auth, admin}
