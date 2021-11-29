@@ -1,7 +1,8 @@
 const express = require('express');
 const route = express.Router();
 const bcrypt = require('bcrypt');
-const Users = require('../models/User')
+const Users = require('../models/User');
+const jwt = require('jsonwebtoken')
 
 //Register
 route.post('/register', async (req, res) => {
@@ -43,7 +44,9 @@ route.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     if(!validPassword) return res.json("Password incorrect")
 
-    res.json("Successfully Logged In")
+    //create token
+    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
+    res.header('auth-token').json(token)
 })
 
 module.exports = route
