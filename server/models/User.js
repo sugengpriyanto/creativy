@@ -5,7 +5,8 @@ const userInfoSchema = new Schema({
     firstName: String,
     lastName: String,
     address: Object,
-    profilePict: {type: String, default: ""}
+    profilePict: {type: String, default: ""},
+    product: Object
 })
 
 const userSchema = new Schema({
